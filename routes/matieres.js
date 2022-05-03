@@ -1,76 +1,125 @@
+let mongoose = require('mongoose');
 let Matiere = require('../model/matiere');
+let User = require('../model/user');
+let Assignment = require('../model/assignment');
 
-// Récupérer tous les assignments (GET)
-function getMatieres(req, res){
-    Matiere.find((err, matieres) => {
-        if(err){
-            res.send(err)
+// Récupérer toutes les matierss (GET)
+
+function getMatieres(req, res) {
+    var aggregateQuery = Matiere.aggregate();
+    let populate = [];
+    if (req.headers.detailed == "true") {
+        populate = [{ path: 'docs.prof', model: User }, { path: 'docs.etudiants', model: User }];
+    }
+    Matiere.aggregatePaginate(aggregateQuery,
+        {
+            page: parseInt(req.query.page) || 1,
+            limit: parseInt(req.query.limit) || 10
+        },
+        (err, matieres) => {
+            if (err) {
+                res.send(err);
+            }
+
+            Matiere.populate(matieres, populate).then(function (error, mm) {
+                if (error) res.json(error);
+                res.json(mm);
+            });
         }
-
-        res.send(matieres);
-    });
+    );
 }
 
-// Récupérer un assignment par son id (GET)
-function getMatiere(req, res){
-    let assignmentId = req.params.id;
+function getMatieresByProf(req, res) {
+    var aggregateQuery = Matiere.aggregate([{ $match: { prof: mongoose.Types.ObjectId(req.params.id) } }]);
+    let populate = [];
+    if (req.headers.detailed == "true") {
+        populate = [{ path: 'docs.prof', model: User }];
+    }
+    Matiere.aggregatePaginate(aggregateQuery,
+        {
+            page: parseInt(req.query.page) || 1,
+            limit: parseInt(req.query.limit) || 10
+        },
+        (err, matieres) => {
+            if (err) {
+                res.send(err);
+            }
+            console.log(matieres);
+            Matiere.populate(matieres, populate).then(function (error, mm) {
+                if (error) res.json(error);
+                res.json(mm);
+            });
+        }
+    );
+}
 
-    Matiere.findOne({id: assignmentId}, (err, assignment) =>{
-        if(err){res.send(err)}
-        res.json(assignment);
+// Récupérer une matiere par son id (GET)
+function getMatiere(req, res) {
+    let matiereId = req.params.id;
+    let populate = [];
+    if (req.headers.detailed == "true") {
+        populate = [{ path: 'prof', model: User }, { path: 'etudiants', model: User }];
+    }
+
+    Matiere.findOne({ _id: matiereId }).populate(populate)
+        .then(function (err, matiere) {
+            if (err) res.json(err);
+            res.json(matiere);
+        });
+}
+
+function postMatiere(req, res) {
+    let matiere = new Matiere();
+    matiere.nom = req.body.nom;
+    matiere.prof = req.body.profId;
+    matiere.etudiants = req.body.etudiantIds;
+
+    matiere.save((err) => {
+        if (err) {
+            res.send('cant post matiere ', err);
+        }
+        res.json({ message: `Matière ${matiere.nom} enregistré!`, result: matiere })
     })
 }
-
-// Ajout d'un assignment (POST)
-function postMatiere(req, res){
-    let assignment = new Matiere();
-    assignment.id = req.body.id;
-    assignment.nom = req.body.nom;
-    assignment.dateDeRendu = req.body.dateDeRendu;
-    assignment.rendu = req.body.rendu;
-
-    console.log("POST assignment reçu :");
-    console.log(assignment)
-
-    assignment.save( (err) => {
-        if(err){
-            res.send('cant post assignment ', err);
-        }
-        res.json({ message: `${assignment.nom} saved!`})
-    })
-}
-
-// Update d'un assignment (PUT)
 function updateMatiere(req, res) {
-    console.log("UPDATE recu assignment : ");
+    console.log("UPDATE recu utilisateur : ");
     console.log(req.body);
-    Matiere.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, assignment) => {
+    Matiere.findByIdAndUpdate(req.body._id, req.body, { new: true }, (err, matiere) => {
         if (err) {
             console.log(err);
             res.send(err)
         } else {
-          res.json({message: `${assignment.nom} updated!`})
+            res.json({ message: `${matiere.nom} mis à jour!`, result: matiere })
         }
-
-      // console.log('updated ', assignment)
     });
-
 }
 
-// suppression d'un assignment (DELETE)
-function deleteMatiere(req, res) {
-
-    Matiere.findByIdAndRemove(req.params.id, (err, assignment) => {
-        if (err) {
-            res.send(err);
+function subscribeMatiereByEtudiant(req, res) {
+    let userId = req.body.etudiantId;
+    let matiereId = req.body.matiereId;
+    User.findOne({ _id: userId }, (err, user) => {
+        if (err) { res.send(err) }
+        if (user && user.type == "Etudiant") {
+            Matiere.findOne({ _id: matiereId }).exec(function (err, matiere) {
+                if (err) { res.send(err) }
+                if (matiere) {
+                    let etudiants = matiere.etudiants;
+                    if (!etudiants.includes(userId)) {
+                        etudiants.push(userId);
+                    }
+                    console.log(etudiants);
+                    Matiere.findByIdAndUpdate(matiereId, { etudiants: etudiants });
+                } else {
+                    res.status(404).json({ message: "matiere not found" });
+                }
+            });
+            res.json(user);
+        } else {
+            res.status(404).json({ message: "user not found or is not an etudiant" });
         }
-        res.json({message: `${assignment.nom} deleted`});
-    })
+    });
 }
 
-function showText(req, res) {
 
-    res.json(' showText function has been called x ! ')
-}
 
-module.exports = { getMatieres, postMatiere, getMatiere, updateMatiere, deleteMatiere, showText};
+module.exports = { getMatieres, postMatiere, updateMatiere, getMatiere, getMatieresByProf, subscribeMatiereByEtudiant };

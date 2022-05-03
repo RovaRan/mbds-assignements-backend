@@ -1,0 +1,366 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Tpangular",
+    "dateExported": "2022-04-29T16:18:42.370Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "420ea613-3cf1-47bc-aa46-98a31ceb6892",
+            "name": "user",
+            "containerId": "",
+            "created": "2022-03-22T04:34:48.554Z",
+            "sortNum": 10000,
+            "settings": {
+                "headers": [],
+                "tests": []
+            }
+        },
+        {
+            "_id": "5e25a2dc-6320-4e05-9330-bb7802f59f48",
+            "name": "matiere",
+            "containerId": "",
+            "created": "2022-04-20T18:01:13.414Z",
+            "sortNum": 20000,
+            "settings": {
+                "headers": [],
+                "auth": {
+                    "type": "bearer",
+                    "bearer": "{{token}}"
+                },
+                "tests": []
+            }
+        },
+        {
+            "_id": "625a6423-9d56-4421-b4c5-c1bb04617e46",
+            "name": "authentication",
+            "containerId": "",
+            "created": "2022-04-23T15:56:51.954Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "9b25d7cc-e153-43a9-9b2c-b926b6d041c2",
+            "name": "assignement",
+            "containerId": "",
+            "created": "2022-04-23T18:24:34.381Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "fe16c15e-4e0d-4242-91be-6a3c15cfe7be",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "625a6423-9d56-4421-b4c5-c1bb04617e46",
+            "name": "user authentication",
+            "url": "{{url}}/user/authenticate",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2022-03-22T16:00:14.953Z",
+            "modified": "2022-04-29T16:11:00.903Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"identifiant\": \"Mopolo\",\n  \"motDePasse\": \"test\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.accessToken",
+                    "action": "setto",
+                    "value": "{{token}}"
+                }
+            ]
+        },
+        {
+            "_id": "eeb76e18-60be-4e7d-9ab5-5f70640a9437",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "9b25d7cc-e153-43a9-9b2c-b926b6d041c2",
+            "name": "get assigments",
+            "url": "{{url}}/assignments",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2022-04-23T18:24:53.786Z",
+            "modified": "2022-04-23T18:33:09.826Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c15aac7b-307c-4a49-849b-558dfccdbe62",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "420ea613-3cf1-47bc-aa46-98a31ceb6892",
+            "name": "get users",
+            "url": "{{url}}/users",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2022-03-22T04:35:01.064Z",
+            "modified": "2022-04-29T15:23:36.800Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "basic"
+            },
+            "tests": []
+        },
+        {
+            "_id": "75c27097-746f-432f-84d7-ed1854a442f6",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "625a6423-9d56-4421-b4c5-c1bb04617e46",
+            "name": "creation authentication",
+            "url": "{{url}}/user/create-login/62394c87111c39263ab3f001",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2022-04-23T15:58:13.196Z",
+            "modified": "2022-04-23T16:47:23.073Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nom\": \"Mopolo\",\n  \"motDePasse\": \"test\",\n  \"derniereConnexion\": \"2022-03-22\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0aa54a6a-16dc-4bd8-a7bc-6351428ff8c8",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "9b25d7cc-e153-43a9-9b2c-b926b6d041c2",
+            "name": "create assignment from matiere",
+            "url": "{{url}}/matiere/6266d8ca7f4b6b2e6cacf597/create-assignments",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2022-04-25T17:10:25.952Z",
+            "modified": "2022-04-25T17:55:58.871Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"nom\":\"React Tp1\",\n    \"dateDeRendu\":\"2022-03-22\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "694c0419-b43f-4e4a-9f1d-e37dd316ef61",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "420ea613-3cf1-47bc-aa46-98a31ceb6892",
+            "name": "get user by id",
+            "url": "{{url}}/users/6266e6402c8e676244eaa548",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2022-03-22T05:02:32.327Z",
+            "modified": "2022-04-26T13:57:38.070Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "93b725af-a794-49c4-8d9c-262251716b80",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "420ea613-3cf1-47bc-aa46-98a31ceb6892",
+            "name": "add user",
+            "url": "{{url}}/users",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2022-03-22T05:03:10.018Z",
+            "modified": "2022-04-29T15:52:17.020Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nom\": \"Micka be\",\n  \"photoUrl\": \"https://s35691.pcdn.co/wp-content/uploads/2019/07/variations-to-traditional-multiple-choice-testing-08.09.19.jpg\",\n  \"type\": \"Etudiant\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.result._id",
+                    "action": "setto",
+                    "value": "{{userTestId}}"
+                }
+            ]
+        },
+        {
+            "_id": "fccd83c7-be3f-4c96-85d5-d2cfdd09de64",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "420ea613-3cf1-47bc-aa46-98a31ceb6892",
+            "name": "add user full info",
+            "url": "{{url}}/user/full-profil",
+            "method": "POST",
+            "sortNum": 45000,
+            "created": "2022-04-26T05:00:18.312Z",
+            "modified": "2022-04-29T16:11:37.951Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nom\": \"Micka be\",\n  \"photoUrl\": \"https://s35691.pcdn.co/wp-content/uploads/2019/07/variations-to-traditional-multiple-choice-testing-08.09.19.jpg\",\n  \"type\": \"Etudiant\",\n  \"identifiant\": \"mika-6\",\n  \"motDePasse\": \"mika\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.result._id",
+                    "action": "setto",
+                    "value": "{{userTestId}}"
+                }
+            ]
+        },
+        {
+            "_id": "15c8d76d-7aac-4402-a945-b836134f9996",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "420ea613-3cf1-47bc-aa46-98a31ceb6892",
+            "name": "update user by id",
+            "url": "{{url}}/users/",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2022-03-22T13:49:42.149Z",
+            "modified": "2022-04-29T16:11:56.761Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"_id\": \"{{userTestId}}\",\n  \"photoUrl\": \"www.google.com\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "44e78db6-b3e3-40c2-b4de-3700c67a1eb7",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "420ea613-3cf1-47bc-aa46-98a31ceb6892",
+            "name": "delete user by id",
+            "url": "{{url}}/users/{{userTestId}}",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2022-03-22T13:56:17.598Z",
+            "modified": "2022-04-29T15:52:46.172Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2227795d-c892-4b34-9271-a5ff991d6a4b",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "5e25a2dc-6320-4e05-9330-bb7802f59f48",
+            "name": "add matiere",
+            "url": "{{url}}/matieres",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2022-04-20T18:02:03.698Z",
+            "modified": "2022-04-25T19:06:08.102Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nom\": \"React\",\n  \"profId\": \"626430d83f871d42dca39158\",\n  \"etudiantIds\": [\n    \"6266d7e02475684bacd249b8\",\n    \"6266d7cb2475684bacd249b6\"\n  ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ad6120d0-79e3-48eb-b635-14a0f142c9ba",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "5e25a2dc-6320-4e05-9330-bb7802f59f48",
+            "name": "subscribe to a matiere",
+            "url": "{{url}}/user/souscrire-matieres",
+            "method": "POST",
+            "sortNum": 82500,
+            "created": "2022-04-26T17:42:26.249Z",
+            "modified": "2022-04-26T18:30:14.106Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"matiereId\": \"6264334e66c1f74298e2243b\",\n  \"etudiantId\": \"6266d7e02475684bacd249b8\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "089fe88a-03d5-43f9-b6a0-afc19902d362",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "5e25a2dc-6320-4e05-9330-bb7802f59f48",
+            "name": "update matiere",
+            "url": "{{url}}/matieres",
+            "method": "PUT",
+            "sortNum": 85000,
+            "created": "2022-04-25T18:17:12.848Z",
+            "modified": "2022-04-25T19:06:02.206Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"_id\": \"6266d8ca7f4b6b2e6cacf597\",\n  \"etudiants\": [\n    \"6266e6402c8e676244eaa548\",\n    \"6266d7e02475684bacd249b8\",\n    \"6266d7cb2475684bacd249b6\"\n  ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e7437764-244b-4a6c-9960-53574722614e",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "5e25a2dc-6320-4e05-9330-bb7802f59f48",
+            "name": "get matiere by id",
+            "url": "{{url}}/matieres/6266d8ca7f4b6b2e6cacf597",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2022-04-23T13:43:50.260Z",
+            "modified": "2022-04-25T18:08:00.340Z",
+            "headers": [
+                {
+                    "name": "Detailed",
+                    "value": "true"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "30010292-b4ed-4a28-96ca-ff46868658de",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "5e25a2dc-6320-4e05-9330-bb7802f59f48",
+            "name": "get matieres",
+            "url": "{{url}}/matieres",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2022-04-23T14:28:42.348Z",
+            "modified": "2022-04-27T16:42:16.991Z",
+            "headers": [
+                {
+                    "name": "Detailed",
+                    "value": "true"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3661dc05-0407-4c72-a111-980844e2c44a",
+            "colId": "27c452b7-84a8-4861-bbcf-2db5a831cd63",
+            "containerId": "5e25a2dc-6320-4e05-9330-bb7802f59f48",
+            "name": "get matieres by prof",
+            "url": "{{url}}/user/6263fde6fcc3ea0a78e07e46/matieres",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2022-04-23T17:47:10.213Z",
+            "modified": "2022-04-23T17:47:45.233Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "headers": [
+            {
+                "name": "x-access-token",
+                "value": "{{token}}"
+            }
+        ],
+        "auth": {
+            "type": "bearer",
+            "bearer": "{{token}}"
+        },
+        "tests": []
+    }
+}

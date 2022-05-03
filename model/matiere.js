@@ -1,10 +1,17 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
+var aggregatePaginate = require("mongoose-aggregate-paginate-v2");
+const user = require('./user');
 
 let MatiereSchema = Schema({
-    id: Number,
-    nom: Date
+    nom: String,    
+    prof:{ type: Schema.Types.ObjectId, ref: user },
+    etudiants:[{type:Schema.Types.ObjectId, ref: user}]
+},
+{
+    versionKey: false
 });
 
-// C'est à travers ce modèle Mongoose qu'on pourra faire le CRUD
-module.exports = mongoose.model('matiere', MatiereSchema);
+MatiereSchema.plugin(aggregatePaginate);
+
+module.exports = mongoose.model('matieres', MatiereSchema);

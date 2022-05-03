@@ -1,0 +1,20 @@
+{
+    "client": "Thunder Client",
+    "environmentName": "heroku",
+    "dateExported": "2022-04-29T16:18:31.960Z",
+    "version": "1.0",
+    "variables": [
+        {
+            "name": "url",
+            "value": "https://tpangularapi.herokuapp.com/api"
+        },
+        {
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNjlhYjc4NDcyZTBmNjlkODJlYzU4NyIsImlhdCI6MTY1MTI0Njc0NiwiZXhwIjoxNjUxMjUwMzQ2fQ.BWquxSMRnY_gnT4lCAQMtIoeRiUIBWjOjAUPVJZWupU"
+        },
+        {
+            "name": "userTestId",
+            "value": ""
+        }
+    ]
+}
